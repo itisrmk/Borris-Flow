@@ -15,4 +15,11 @@ node_modules/
 .tmp/
 
 # Claude worktree scratch space
+.claude/workspaces/
+
+# Project-local operational docs (tracked defaults + optional untracked entries)
+agents.md
+logs.md
+
+# Claude worktree scratch space
 .claude/worktrees/

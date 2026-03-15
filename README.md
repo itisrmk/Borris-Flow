@@ -1,169 +1,143 @@
+<div align="center">
+
 # Borris-Flow
 
-**Borris-Flow** is a lightweight Claude Code starter kit for solo and small-team engineering teams that want a practical **workflow-inspired** setup: reliable local conventions, fast task parallelization, and clean handoffs.
+![Borris-Flow logo](./assets/logo.png)
 
-It is explicitly inspired by Boris Cherny’s public workflow framing for Claude Code (create/execute/review), as described in this thread: https://x.com/bcherny/status/2007179832300581177. This project is an independent implementation and only mirrors the workflow approach.
+**Your Claude-first starter for fast, safe, parallel software delivery.**
 
-Built around `claude`, the repository gives you:
+Inspired by Boris Cherny's workflow thread: https://x.com/bcherny/status/2007179832300581177
 
-- A ready-to-use local CLI scaffold (`borris-flow`)
-- Parallel feature execution across git worktrees (`/workflow`)
-- Consistent command/agent conventions for review, testing, and commits
-- One-command global install and verification ergonomics
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
+[![Version](https://img.shields.io/badge/Version-v1.0.0-blue)](https://github.com/itisrmk/Borris-Flow/releases/tag/v1.0.0)
+[![GitHub stars](https://img.shields.io/github/stars/itisrmk/Borris-Flow?style=social)](https://github.com/itisrmk/Borris-Flow)
 
----
+</div>
 
-## About this repo
-
-This project is designed to make Claude Code a first-class local development workflow, not a sidecar. It bakes in:
-
-- **Context discipline** (`CLAUDE.md` + `.claude/agents/*` + `.claude/commands/*`)
-- **Safe automation** (`--dry-run`, prompt-based overwrite, explicit `--force`)
-- **Parallel execution** (`scripts/borris-workflow.sh`)
-- **Reusable contributor loop** (Makefile + docs + templates)
+> **Borris-Flow** is an open starter that turns Claude Code into an operational workflow:
+> **create → execute → review**, with clean handoffs and repeatable local conventions.
 
 ---
 
-## Why Borris-Flow?
+## Why teams use Borris-Flow
 
-Most local setups drift into one-off scripts and one-off workflows. Borris-Flow gives you a repeatable baseline so every repo can start with the same conventions and every task can be kicked off the same way.
-
-- Quick onboarding for Claude Code in new projects
-- Easy feature fan-out without context switching
-- Clear task handoffs through generated `TASK.md`
-- Machine-readable workflow output for automation
+- 🚀 **Boot up fast** with `borris-flow` and get a full Claude local command/agent structure instantly.
+- 🧠 **Parallelize safely** with `/workflow`-style worktrees so multiple features can run independently.
+- 🧰 **Consistent developer routine** with built-in `.claude/commands` and `.claude/agents`.
+- 🛡️ **Safe by default** with confirmation prompts, `--dry-run`, and `--force` gates.
+- 🤖 **Automation-friendly** with stable `--json` output and predictable tooling contracts.
 
 ---
 
-## Install
-
-### 1) Clone or copy this repo
+## Quick start
 
 ```bash
 git clone https://github.com/itisrmk/Borris-Flow.git
 cd Borris-Flow
-```
-
-### 2) Install global commands
-
-```bash
 make install
-# or:
-./scripts/install-borris-workflow.sh
 ```
 
-You can rerun with force when needed:
-
-```bash
-make install-force
-```
-
-Ensure `~/.local/bin` is on PATH:
+If `~/.local/bin` is not in PATH:
 
 ```bash
 export PATH="$HOME/.local/bin:$PATH"
 ```
 
----
-
-## Bootstrapping a project
-
-Use `borris-flow` to scaffold `.claude` and `CLAUDE.md` into a project:
+Now install this template into any project:
 
 ```bash
-# Current repo
-borris-flow init
-
-# Target repo
 borris-flow init /path/to/your-project
-
-# Overwrite existing scaffold files
-borris-flow init /path/to/your-project --force
-# or
+# overwrite if needed:
 borris-flow --force init /path/to/your-project
 ```
 
-### `borris-flow` options
-
-- `--help` (`-h`): show usage
-- `--version` (`-V`): print version
-- `--force` (`-f`): overwrite on install
-
-`init` copies:
-- `.claude/`
-- `CLAUDE.md`
-
 ---
 
-## Parallel workflow automation (`/workflow`)
+## Core capabilities
 
-After a project is initialized, kick off multiple feature streams from repo root:
+### 1) Project bootstrap (`borris-flow`)
+
+- Scaffolds `.claude/` and `CLAUDE.md`
+- Keeps setup predictable and deterministic
+- Reusable across repos with explicit `--force` behavior
+
+```bash
+borris-flow init                   # current repo
+borris-flow init ./my-repo --force  # replace template files
+```
+
+### 2) Parallel execution (`borris-workflow`)
+
+From repo root:
 
 ```bash
 borris-workflow "auth: add SSO login" "ui: improve status banner" "tests: stabilize flakies"
 ```
 
-Or from anywhere (once installed):
+From anywhere (after install):
 
 ```bash
-borris-workflow --project-root /path/to/repo "feature: stabilize flaky tests"
+borris-workflow --project-root /path/to/repo "analytics: stabilize flaky tests"
 ```
 
-### Options
+Supports:
+- `--project-root` target explicit repo
+- `--base` base ref/branch
+- `--max` terminal fan-out
+- `--launch` / `--no-launch`
+- `--dry-run`
+- `--json`
 
-- `--project-root <path>`: target repo explicitly
-- `--base <ref>`: branch each feature from current branch by default
-- `--max <N>`: max auto-launched Claude terminals (default `4`)
-- `--launch` / `--no-launch`: control auto-launch behavior
-- `--dry-run`: preview only, no changes
-- `--json`: machine-readable output
-- `--help`: usage
-
-### What it does
-
-1. Creates `.claude/worktrees/<slug>` worktrees
-2. Creates branches like `workflow/<slug>`
-3. Initializes Borris-Flow inside each worktree
-4. Writes `TASK.md` per feature
-5. Launches Claude terminals (or prints manual commands when launch is not available)
-
-### JSON mode
+### JSON automation example
 
 ```bash
-borris-workflow --dry-run --json --project-root /path/to/repo "analytics: stabilize flaky tests"
-borris-workflow --json "api: add webhooks" "ui: improve status banner"
+borris-workflow --dry-run --json --project-root /path/to/repo "analytics: reduce p95 latency"
 ```
 
-Response shape includes `planned`, `created`, and `results` arrays for tooling.
+The result includes:
+- `planned` (requested feature plans)
+- `created` (actually created worktrees)
+- `results` (per-item execution summary)
 
----
-
-## Development workflow
+### 3) Installer and maintenance
 
 ```bash
-make install        # one-shot install of command entrypoints
-make install-force  # force-reinstall entrypoints
-make verify         # scripts syntax + JSON smoke test
+make install        # install global commands into ~/.local/bin
+make install-force  # overwrite existing installs
+make verify         # syntax checks + workflow smoke
 make lint           # alias for verify
-make clean          # remove managed ~/.local/bin symlinks
+make clean          # remove managed symlinks
 ```
 
-See [`EXAMPLES.md`](./EXAMPLES.md) for real command recipes.
+---
+
+## What you get in this repo
+
+- `borris-flow` — bootstrap CLI
+- `borris-workflow` — global command wrapper
+- `scripts/borris-workflow.sh` — orchestration engine
+- `scripts/install-borris-workflow.sh` — one-shot installer
+- `Makefile` — standard tasks
+- `EXAMPLES.md` — practical multi-scenario snippets
+- `CONTRIBUTING.md`, `RELEASE.md`, `ABOUT.md`
+- `.claude/commands/*` and `.claude/agents/*`
 
 ---
 
-## Repository hygiene
+## About this repo
 
-- `LICENSE`: MIT license
-- `CONTRIBUTING.md`: contribution workflow
-- `.gitignore`: clean working trees for publish
-- `RELEASE.md`: release steps and checklist
+This is intentionally **Boris-inspired** and **Claude-first**, not a fork.
+
+It is explicitly inspired by Boris Cherny’s workflow framing for Claude Code (create/execute/review), as described here:
+https://x.com/bcherny/status/2007179832300581177.
+
+We adapt the structure and intent so teams can ship faster with less context churn.
 
 ---
 
-## Optional: power-up with Ruflo
+## Optional: add Rufflo when needed
 
-Ruflo remains optional and is intentionally non-blocking:
+Ruflo is optional and power-user only:
 
 - `ruflo task create ...`
 - `ruflo task list`
@@ -173,12 +147,6 @@ Core workflow remains Claude-first.
 
 ---
 
-## Inspiration
-
-This release explicitly credits **Boris Cherny** and his public thread: https://x.com/bcherny/status/2007179832300581177.
-
-We adapted only the **workflow pattern** (create/execute/review cycles and safe local conventions). This repository is an independent implementation and does not copy Boris's code.
-
 ## License
 
-This project is licensed under the [MIT License](./LICENSE).
+MIT — see [LICENSE](./LICENSE).

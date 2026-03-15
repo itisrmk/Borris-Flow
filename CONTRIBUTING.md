@@ -61,3 +61,11 @@ Before opening a PR, run the verification commands and report results:
 
 This project is designed to stay lightweight and production-safe. Aim for:
 small diffs, clear intent, and clean execution.
+
+## Project maintenance docs
+
+Keep `agents.md` and `logs.md` up to date for each meaningful work cycle:
+
+- update `agents.md` when roles, process, or ownership expectations change
+- append a new entry in `logs.md` after each significant implementation/verification session
+- this makes handoffs and future maintenance decisions traceable

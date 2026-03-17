@@ -16,6 +16,8 @@
 <p align="center">
   <img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License" />
   <img src="https://img.shields.io/badge/Version-v1.0.2-blue" alt="Version" />
+  <a href="https://www.npmjs.com/package/borris-flow"><img src="https://img.shields.io/npm/v/borris-flow.svg" alt="npm version" /></a>
+  <a href="https://www.npmjs.com/package/borris-flow"><img src="https://img.shields.io/npm/dt/borris-flow.svg" alt="npm downloads" /></a>
   <img src="https://img.shields.io/github/stars/itisrmk/Borris-Flow?style=social" alt="GitHub stars" />
 </p>
 

@@ -20,6 +20,12 @@
   <a href="https://www.npmjs.com/package/borris-flow"><img src="https://img.shields.io/npm/dt/borris-flow.svg" alt="npm downloads" /></a>
   <img src="https://img.shields.io/github/stars/itisrmk/Borris-Flow?style=social" alt="GitHub stars" />
 </p>
+<p align="center">
+  <a href="https://www.npmjs.com/package/borris-flow"><img src="https://img.shields.io/badge/npm-install%20global-cb3837?logo=npm&logoColor=white" alt="Install via npm" /></a>
+</p>
+<p align="center">
+  <code>npm install -g borris-flow</code>
+</p>
 
 ---
 

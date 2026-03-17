@@ -2,15 +2,31 @@
 
 set -euo pipefail
 
-VERSION="1.0.0"
 SCRIPT_NAME="$(basename "$0")"
 SCRIPT_SOURCE="${BASH_SOURCE[0]}"
 while [ -h "$SCRIPT_SOURCE" ]; do
-  SCRIPT_SOURCE="$(readlink "$SCRIPT_SOURCE")"
+  SCRIPT_DIR="$(cd -P "$(dirname "$SCRIPT_SOURCE")" && pwd)"
+  SCRIPT_SOURCE="$SCRIPT_DIR/$(readlink "$SCRIPT_SOURCE")"
 done
-SCRIPT_DIR="$(cd "$(dirname "$SCRIPT_SOURCE")" && pwd)"
+SCRIPT_DIR="$(cd -P "$(dirname "$SCRIPT_SOURCE")" && pwd)"
 TEMPLATE_CLAUDE_DIR="${SCRIPT_DIR}/.claude"
 TEMPLATE_CLAUDE_MD="${SCRIPT_DIR}/CLAUDE.md"
+PACKAGE_JSON="${SCRIPT_DIR}/package.json"
+
+get_version() {
+  if [ -f "$PACKAGE_JSON" ]; then
+    python3 - "$PACKAGE_JSON" <<'PY'
+import json
+import sys
+
+with open(sys.argv[1], 'r', encoding='utf-8') as f:
+    data = json.load(f)
+print(data.get('version', 'dev'))
+PY
+    return
+  fi
+  echo "0.0.0"
+}
 
 usage() {
   cat <<EOF
@@ -30,7 +46,7 @@ EOF
 }
 
 version() {
-  echo "${SCRIPT_NAME} ${VERSION}"
+  echo "${SCRIPT_NAME} $(get_version)"
 }
 
 confirm() {

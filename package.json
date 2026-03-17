@@ -1,0 +1,42 @@
+{
+  "name": "borris-flow",
+  "version": "1.0.2",
+  "description": "Borris-style Claude workflow bootstrap and parallel worktree orchestration utilities.",
+  "license": "MIT",
+  "type": "commonjs",
+  "bin": {
+    "borris-flow": "borris-flow",
+    "borris-workflow": "borris-workflow"
+  },
+  "files": [
+    "borris-flow",
+    "borris-workflow",
+    "scripts",
+    ".claude",
+    "CLAUDE.md",
+    "agents.md",
+    "README.md",
+    "EXAMPLES.md",
+    "LICENSE",
+    "RELEASE.md",
+    "ABOUT.md",
+    "CONTRIBUTING.md",
+    "assets/logo.png"
+  ],
+  "scripts": {
+    "test": "make verify"
+  },
+  "keywords": [
+    "claude",
+    "workflow",
+    "borris",
+    "worktree",
+    "developer-tool",
+    "automation"
+  ],
+  "homepage": "https://github.com/itisrmk/Borris-Flow",
+  "repository": {
+    "type": "github",
+    "url": "git+https://github.com/itisrmk/Borris-Flow.git"
+  }
+}

@@ -15,7 +15,7 @@
 
 <p align="center">
   <img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License" />
-  <img src="https://img.shields.io/badge/Version-v1.0.0-blue" alt="Version" />
+  <img src="https://img.shields.io/badge/Version-v1.0.2-blue" alt="Version" />
   <img src="https://img.shields.io/github/stars/itisrmk/Borris-Flow?style=social" alt="GitHub stars" />
 </p>
 
@@ -36,6 +36,10 @@
 ### 1) Install the toolchain
 
 ```bash
+# Option A: npm (recommended for users)
+npm install -g borris-flow
+
+# Option B: local install from source
 # Clone and enter the repo
 # https://github.com/itisrmk/Borris-Flow.git
 git clone https://github.com/itisrmk/Borris-Flow.git
